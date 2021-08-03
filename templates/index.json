@@ -2,59 +2,137 @@
   "sections": {
     "image_banner": {
       "type": "image-banner",
-      "settings": {
-        "desktop_text_box_position": "flex-end"
-      },
       "blocks": {
         "heading": {
           "type": "heading",
+          "disabled": true,
           "settings": {
-            "heading": "Talk about your brand"
+            "heading": ""
           }
         },
         "button": {
           "type": "buttons",
+          "disabled": true,
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify:\/\/collections\/all",
-            "button_label_2": ""
+            "button_label_1": "",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        },
+        "e4177504-dff7-480c-aef9-81f513b3b24f": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Give customers details about the banner image(s) or content on the template."
           }
         }
       },
       "block_order": [
         "heading",
-        "button"
-      ]
+        "button",
+        "e4177504-dff7-480c-aef9-81f513b3b24f"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/sports-4013449_1280.jpg",
+        "desktop_text_box_position": "flex-end",
+        "color_scheme": "background-1",
+        "stack_images_on_mobile": true,
+        "adapt_height_first_image": false
+      }
     },
     "featured_products": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products"
+        "title": "Featured products",
+        "collection": "mookup-tshirts",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "add_image_padding": false,
+        "show_vendor": false
       }
     },
     "image_text": {
       "type": "image-with-text",
       "blocks": {
         "heading": {
-          "type": "heading"
+          "type": "heading",
+          "settings": {
+            "heading": "Bringing the streets to your closet!"
+          }
         },
         "text": {
-          "type": "text"
+          "type": "text",
+          "settings": {
+            "text": "<p>The wearing the best look of the streets, without having!<\/p>"
+          }
         },
         "button": {
-          "type": "button"
+          "type": "button",
+          "settings": {
+            "button_label": "See out street collection",
+            "button_link": "shopify:\/\/collections\/street-shoes"
+          }
         }
       },
       "block_order": [
         "heading",
         "text",
         "button"
-      ]
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/mens-tshirts-5893531_1280.jpg",
+        "height": "adapt",
+        "color_scheme": "accent-1",
+        "layout": "image_first"
+      }
+    },
+    "162799723626bdf65b": {
+      "type": "collection-list",
+      "blocks": {
+        "162799723626bdf65b-0": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mookup-tshirts"
+          }
+        },
+        "162799723626bdf65b-1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "street-shoes"
+          }
+        },
+        "162799723626bdf65b-2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mookup-tshirts"
+          }
+        }
+      },
+      "block_order": [
+        "162799723626bdf65b-0",
+        "162799723626bdf65b-1",
+        "162799723626bdf65b-2"
+      ],
+      "settings": {
+        "title": "Collections",
+        "image_ratio": "square",
+        "color_scheme": "background-1",
+        "swipe_on_mobile": false,
+        "image_padding": false,
+        "show_view_all": false
+      }
     }
   },
   "order": [
     "image_banner",
     "featured_products",
-    "image_text"
+    "image_text",
+    "162799723626bdf65b"
   ]
 }

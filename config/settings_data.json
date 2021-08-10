@@ -1,5 +1,7 @@
 {
   "current": {
+    "social_facebook_link": "https:\/\/facebook.com",
+    "social_instagram_link": "https:\/\/instagram.com",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",

@@ -23,8 +23,8 @@
         "type": "header",
         "settings": {
           "logo": "shopify:\/\/shop_images\/Screenshot_2021-08-10_at_14.48.45.png",
-          "logo_width": 150,
-          "logo_position": "top-center",
+          "logo_width": 100,
+          "logo_position": "middle-left",
           "menu": "main-menu",
           "show_line_separator": true,
           "enable_sticky_header": true

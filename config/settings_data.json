@@ -4,6 +4,10 @@
     "social_facebook_link": "https:\/\/facebook.com",
     "social_instagram_link": "https:\/\/instagram.com",
     "favicon": "shopify:\/\/shop_images\/Logo_Geel_copy.png",
+    "checkout_logo_image": "shopify:\/\/shop_images\/Logo_Geel_copy.png",
+    "checkout_logo_position": "center",
+    "checkout_logo_size": "small",
+    "checkout_button_color": "#000000",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",

@@ -1,0 +1,97 @@
+<link rel="stylesheet" href="{{ 'accordion-item.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<script src="{{ 'accordion-item.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign pageTitle = section.settings.main__title
+  assign spacingSides = section.settings.spacing__size
+  assign spacing_size = 'accordion__' | append: spacingSides
+-%}
+
+{% if page.title != nil %}
+{{- page.title -}}
+{% else %}
+<h1 class="custom-page__title">{{- pageTitle -}}</h1>    
+{% endif %}
+
+<div class="accordion__container {{ spacing_size }}">
+  {% for block in section.blocks %}
+    <button class="accordion">{{- block.settings.title -}}</button>
+    <div class="panel">
+      <p accordion__text>{{- block.settings.text -}}</p>
+    </div>
+  {% endfor %}
+</div>
+  
+  {% schema %}
+  {
+    "name": "Accordion item",
+    "settings": [
+    {
+      "type": "header",
+      "content": "Accordion item"
+    },
+    {
+      "type": "richtext",
+      "id": "main__title",
+      "label": "Page Title",
+      "default": "<p></p>",
+      "info": "Add here yout title, if empty it will default to page title!"
+    },
+    {
+      "type": "select",
+      "id": "spacing__size",
+      "label": "Boxes alignment for Desktop",
+      "default": "large",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "none",
+          "label": "No Side Spacing"
+        }
+      ]
+    }
+    ],
+    "blocks": [
+        {
+          "type": "block",
+          "name": "Box item",
+          "settings": [
+            {
+            "type": "richtext",
+            "id": "title",
+            "label": "Title",
+            "default": "<p>This is your title</p>",
+            "info": "Add here yout title"
+            },
+            {
+            "type": "richtext",
+            "id": "text",
+            "label": "text",
+            "default": "<p>Here goes your text content.</p>",
+            "info": "Add here yout title"
+            }
+          ]
+        }
+    ],
+    "presets": [
+      {
+        "name": "Dropdown content",
+        "category": "Page"
+      }
+    ]
+  }
+  {% endschema %}
+
+  

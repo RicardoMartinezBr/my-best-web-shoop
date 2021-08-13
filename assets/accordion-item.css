@@ -1,0 +1,61 @@
+.accordion__container {
+    margin: 50px 50px;
+}
+
+.custom-page__title {
+    text-align: center;
+}
+
+.accordion__container .accordion {
+    border:none;
+    background-color: #fff;
+    color: rgb(26, 27, 24);
+    cursor: pointer;
+    padding: 5px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    margin-top: 0px;
+    font-size: 2.4rem;
+}
+  
+.active, .accordion:hover {
+    background-color: #fff;
+}
+  
+.panel {
+    padding: 0 5px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}
+
+p {
+    margin-top: 0px;
+} 
+
+button:focus-visible {
+    outline:none; 
+}
+  
+@media screen and (min-width: 800px) and (max-width: 2000px) {
+
+    
+    .accordion__small {
+        margin: 0 400px;
+    }
+
+    .accordion__medium {
+        margin: 0 300px;
+    }
+
+    .accordion__large {
+        margin: 0 200px;
+    }
+
+    .accordion__none {
+        margin: 0 5rem;
+    }
+}

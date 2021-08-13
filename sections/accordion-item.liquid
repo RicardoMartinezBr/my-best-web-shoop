@@ -8,11 +8,7 @@
   assign spacing_size = 'accordion__' | append: spacingSides
 -%}
 
-{% if page.title != nil %}
-{{- page.title -}}
-{% else %}
 <h1 class="custom-page__title">{{- pageTitle -}}</h1>    
-{% endif %}
 
 <div class="accordion__container {{ spacing_size }}">
   {% for block in section.blocks %}

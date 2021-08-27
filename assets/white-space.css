@@ -1,0 +1,10 @@
+.white-space {
+    height: 50px;
+    width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+    .white-space {
+        height: 60px;
+    }
+}

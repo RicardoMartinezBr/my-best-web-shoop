@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="{{ 'component-title-and-text.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{%- liquid
+    assign contentTitle = section.settings.title
+    assign contentText = section.settings.text
+    assign paragraphSize = section.settings.paragraph__size
+    assign paragraph_size = 'content__' | append: paragraphSize
+-%}
+  
+  <div class="content {{ paragraph_size }}">
+    <h2 class="content__title">
+      {{- contentTitle -}}
+    </h2>
+    <div class="content__text t-fg-13">
+      {{- contentText -}}
+    </div>  
+  </div>
+  
+  
+  {% schema %}
+  {
+    "name": "Subitle and text",
+    "settings": [
+    {
+      "type": "header",
+      "content": "Subtitle and text"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>This is your title</p>",
+      "info": "Add here yout title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "text",
+      "default": "<p>Here goes your text content.</p>",
+      "info": "Add here yout title"
+    },
+    {
+      "type": "select",
+      "id": "paragraph__size",
+      "label": "Size of the paragraph",
+      "default": "large",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        }
+        ,
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ]
+    }
+    ],
+    "presets": [
+      {
+        "name": "Subtitle and text",
+        "category": "Page"
+      }
+    ]
+  }
+  {% endschema %}
+  

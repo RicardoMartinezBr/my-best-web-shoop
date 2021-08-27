@@ -1,0 +1,26 @@
+{{ 'white-space.css' | asset_url | stylesheet_tag }}
+
+<div class="white-space">
+</div>
+
+{% schema %}
+  {
+    "name": "White space",
+    "settings": [
+      {
+        "type": "header",
+        "content": "White space section"
+      },
+      {
+        "type": "paragraph",
+        "content": "This section can be used to create visual white space in between sections"
+      }
+    ],
+    "presets": [
+      {
+        "name": "White space",
+        "category": "White space"
+      }
+    ]
+  }
+{% endschema %}

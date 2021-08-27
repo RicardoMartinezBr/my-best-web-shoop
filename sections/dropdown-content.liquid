@@ -1,0 +1,125 @@
+<link rel="stylesheet" href="{{ 'dropdown-content.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<script src="{{ 'dropdown-content.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign pageTitle = section.settings.main__title
+  assign spacingSides = section.settings.spacing__size
+  assign spacing_size = 'accordion__' | append: spacingSides
+-%}
+
+<h1 class="custom-page__title" style=" font-size: {{ section.settings.font_size -}}px;">{{- pageTitle -}}</h1>
+
+<div class="accordion {{ spacing_size }}">
+  {% for block in section.blocks %}
+    <div class="accordion-item">
+      <div class="accordion-item-header" style=" font-size: {{ block.settings.accordion_title_size -}}px;">
+        {{- block.settings.title -}}
+      </div>
+      <div class="accordion-item-body">
+        <div class="accordion-item-body-content" style=" font-size: {{ block.settings.accordion_text_size -}}px;">
+          {{- block.settings.text -}}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+  
+  {% schema %}
+  {
+    "name": "Accordion item",
+    "settings": [
+    {
+      "type": "header",
+      "content": "Accordion item"
+    },
+    {
+      "type": "richtext",
+      "id": "main__title",
+      "label": "Page Title",
+      "default": "<p></p>",
+      "info": "Add here yout title, if empty it will default to page title!"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 10,
+      "label": "Title size"
+    },
+    {
+      "type": "select",
+      "id": "spacing__size",
+      "label": "Boxes alignment for Desktop",
+      "default": "large",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "none",
+          "label": "No Side Spacing"
+        }
+      ]
+    }
+    ],
+    "blocks": [
+        {
+          "type": "block",
+          "name": "Box item",
+          "settings": [
+            {
+            "type": "richtext",
+            "id": "title",
+            "label": "Title",
+            "default": "<p>This is your title</p>",
+            "info": "Add here your title"
+            },
+            {
+              "type": "range",
+              "id": "accordion_title_size",
+              "min": 10,
+              "max": 100,
+              "step": 1,
+              "default": 17,
+              "label": "Title size"
+            },
+            {
+            "type": "richtext",
+            "id": "text",
+            "label": "text",
+            "default": "<p>Here goes your text content.</p>",
+            "info": "Add here your text"
+            },
+            {
+              "type": "range",
+              "id": "accordion_text_size",
+              "min": 10,
+              "max": 100,
+              "step": 1,
+              "default": 14,
+              "label": "Text size"
+            }
+          ]
+        }
+    ],
+    "presets": [
+      {
+        "name": "Dropdown content",
+        "category": "Page"
+      }
+    ]
+  }
+  {% endschema %}

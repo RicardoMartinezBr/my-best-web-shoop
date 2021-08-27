@@ -1,0 +1,101 @@
+{{ 'image-with-title-over.css' | asset_url | stylesheet_tag }}
+
+<div class="section__title-container" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.main_title_color }};">
+    <h2 class="section__title" style="color: {{ section.settings.main_title_color }}; font-size: {{- section.settings.font_size -}}px; ">{{- section.settings.main_title -}}</h2>
+    <div class="section__description">{{- section.settings.description -}}</div>
+</div>
+
+<div class="image__container" style="background-color: {{ section.settings.background_color }};">
+    {% for block in section.blocks %}
+        <div class="image__inner-container">
+            <img class="image" src="{{ block.settings.image | img_url: '' }}" alt="{{ block.settings.image.alt | escape }}" loading="lazy">
+            <div class="image__content">
+                <h2 class="image__title" style="color: {{ block.settings.image_text_color }};">{{- block.settings.title -}}</h2>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Image with title over",
+  "class": "spaced-section spaced-section--full-width",
+  "tag": "section",
+  "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#FFFFFF",
+        "label": "Background color"
+      },
+      {
+        "type": "color",
+        "id": "main_title_color",
+        "default": "#000000",
+        "label": "Main title color"
+      },
+      {
+        "type": "range",
+        "id": "font_size",
+        "min": 20,
+        "max": 100,
+        "step": 1,
+        "default": 20,
+        "label": "Font size main title"
+      },
+      {
+        "type": "richtext",
+        "id": "main_title",
+        "default": "<p>Valk Store Icons</p>",
+        "label": "Main title"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "default": "<p>Your favorite items</p>",
+        "label": "Description text"
+      }
+    ],
+    "blocks": [
+        {
+        "type": "column",
+        "name": "t:sections.multicolumn.blocks.column.name",
+        "settings": [
+            {
+            "type": "image_picker",
+            "id": "image",
+            "label": "t:sections.multicolumn.blocks.column.settings.image.label"
+            },
+            {
+            "type": "text",
+            "id": "title",
+            "default": "Title",
+            "label": "t:sections.multicolumn.blocks.column.settings.title.label"
+            },
+            {
+            "type": "color",
+            "id": "image_text_color",
+            "default": "#FFFFFF",
+            "label": "Text color"
+            }
+          ]
+        }
+    ],
+    "presets": [
+        {
+        "name": "Image with title over",
+        "blocks": [
+            {
+            "type": "column"
+            },
+            {
+            "type": "column"
+            },
+            {
+            "type": "column"
+            }
+        ]
+    }
+  ]
+}
+{% endschema %}

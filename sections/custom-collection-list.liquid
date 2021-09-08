@@ -1,62 +1,85 @@
 {{ 'section-custom-collection-list.css' | asset_url | stylesheet_tag }}
-
-<script src="{{ 'swiper.js' | asset_url }}" defer="defer"></script>
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <div class="collection-list-wrapper page-width{% if section.settings.swipe_on_mobile == true %} page-width-desktop{% endif %}{% if section.settings.title == blank %} no-heading{% endif %}{% if section.settings.show_view_all == false or section.blocks.size > collections.size %} no-mobile-link{% endif %}">
   <div class="collection__title-wrapper">
     <h2 class="collection__main-title" style=" font-size: {{ section.settings.title_size -}}px;">{{ section.settings.title | escape }}</h2>
 
-    {% comment %} {%- if section.settings.show_view_all and section.settings.swipe_on_mobile -%}
+    {%- if section.settings.show_view_all and section.settings.swipe_on_mobile -%}
       <a href="{{ routes.collections_url }}" class="link underlined-link large-up-hide">{{ 'sections.collection_list.view_all' | t }}</a>
-    {%- endif -%} {% endcomment %}
+    {%- endif -%}
   </div>
-<div class="collection-main-container swiper-container">
-  <div class="collection__list swiper-wrapper">
-    {%- for block in section.blocks -%}
-    <div class="collection__item swiper-slide">
-      <a href="{{ block.settings.collection_url }}">
-        <div class="collection__image-wrapper">
-          <img
-          srcset="{%- if block.settings.collection.featured_image.width >= 165 -%}{{ block.settings.collection.featured_image | img_url: '165x' }} 165w,{%- endif -%}
-          {%- if block.settings.collection.featured_image.width >= 330 -%}{{ block.settings.collection.featured_image | img_url: '330x' }} 330w,{%- endif -%}
-          {%- if block.settings.collection.featured_image.width >= 535 -%}{{ block.settings.collection.featured_image | img_url: '535x' }} 535w,{%- endif -%}
-          {%- if block.settings.collection.featured_image.width >= 750 -%}{{ block.settings.collection.featured_image | img_url: '750x' }} 750w,{%- endif -%}
-          {%- if block.settings.collection.featured_image.width >= 1000 -%}{{ block.settings.collection.featured_image | img_url: '1000x' }} 1000w,{%- endif -%}
-          {%- if block.settings.collection.featured_image.width >= 1500 -%}{{ block.settings.collection.featured_image | img_url: '1500x' }} 1500w,{%- endif -%}
-          {%- if block.settings.collection.featured_image.width >= 3000 -%}{{ block.settings.collection.featured_image | img_url: '3000x' }} 3000w{%- endif -%}"
-          src="{{ block.settings.collection.featured_image | img_url: '1500x' }}"
-          alt="{{ block.settings.collection.title | escape }}"
-          height="{{ block.settings.collection.featured_image.height }}"
-          width="{{ block.settings.collection.featured_image.width }}"
-          loading="lazy"
-          class="collection__image"
-          >
-        </div>
-        <h3 class="collection-link-title" style="color: {{ block.settings.link_color }};">
-          {{ block.settings.collection_title }}
-        </h3>
-      </a>
+
+  <slider-component class="slider-mobile-gutter">
+    <ul class="collection-list collection__container"
+      id="Slider-{{ section.id }}"
+      role="list"
+    >
+
+      {%- for block in section.blocks -%}
+        <li class="collection-list__item grid__item{% if section.settings.swipe_on_mobile %} slider__slide{% endif %}" {{ block.shopify_attributes }}>
+          <a class="collection_link" href="{{ block.settings.collection_url }}">
+            <div class="card--stretch card-colored">
+              {%- if block.settings.collection.featured_image != blank -%}
+                <div {% if section.settings.image_padding %} class="card__media-spacer"{% endif %}>
+                  {% if section.settings.image_padding %}<div class="overlay-card"></div>{% endif %}
+                  <div class="collection__image-wrapper">
+
+                    <img
+                      srcset="{%- if block.settings.collection.featured_image.width >= 165 -%}{{ block.settings.collection.featured_image | img_url: '165x' }} 165w,{%- endif -%}
+                        {%- if block.settings.collection.featured_image.width >= 330 -%}{{ block.settings.collection.featured_image | img_url: '330x' }} 330w,{%- endif -%}
+                        {%- if block.settings.collection.featured_image.width >= 535 -%}{{ block.settings.collection.featured_image | img_url: '535x' }} 535w,{%- endif -%}
+                        {%- if block.settings.collection.featured_image.width >= 750 -%}{{ block.settings.collection.featured_image | img_url: '750x' }} 750w,{%- endif -%}
+                        {%- if block.settings.collection.featured_image.width >= 1000 -%}{{ block.settings.collection.featured_image | img_url: '1000x' }} 1000w,{%- endif -%}
+                        {%- if block.settings.collection.featured_image.width >= 1500 -%}{{ block.settings.collection.featured_image | img_url: '1500x' }} 1500w,{%- endif -%}
+                        {%- if block.settings.collection.featured_image.width >= 3000 -%}{{ block.settings.collection.featured_image | img_url: '3000x' }} 3000w{%- endif -%}"
+                      src="{{ block.settings.collection.featured_image | img_url: '1500x' }}"
+                      sizes="
+                      (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: columns }}px,
+                      (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %},
+                      calc(100vw - 3rem)"
+                      alt="{{ block.settings.collection.title | escape }}"
+                      height="{{ block.settings.collection.featured_image.height }}"
+                      width="{{ block.settings.collection.featured_image.width }}"
+                      loading="lazy"
+                      class="collection__image"
+                    >
+                  </div>
+                </div>
+
+                <div>
+                  {% unless section.settings.image_padding %}<div class="overlay-card"></div>{% endunless %}
+                  <h3 class="collection-link-title" style="color: {{ block.settings.link_color }};">
+                    {{ block.settings.collection_title }}
+                  </h3>
+                </div>
+              {%- endif -%}
+            </div>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- if section.settings.swipe_on_mobile == true -%}
+      <div>
+        <button class="collection__prev" name="previous"> {% render 'icon-caret' %}</button>
+        <button class="collection__next" name="next">{% render 'icon-caret' %}</button>
+      </div>
+    {%- endif -%}
+  </slider-component>
+
+  {%- if section.settings.show_view_all and section.blocks.size < collections.size -%}
+    <div class="center{% if section.settings.swipe_on_mobile %} small-hide medium-hide{% endif %}">
+      <a href="{{ routes.collections_url }}" class="button collection-all-button">{{ 'sections.collection_list.view_all' | t }}</a>
     </div>
-    {%- endfor -%}
-  </div>
-  <div class="collection-buttons-wrapper">
-    <button class="collection__prev" name="previous"> {% render 'icon-caret' %}</button>
-    <button class="collection__next" name="next">{% render 'icon-caret' %}</button>
-  </div>
+  {%- endif -%}
 </div>
-
-{%- if section.settings.show_view_all == true -%}
-  <div>
-    <a href="{{ routes.collections_url }}" class="button collection-all-button">{{ 'sections.collection_list.view_all' | t }}</a>
-  </div>
-{%- endif -%}
-
 
 {% schema %}
 {
   "name": "Custom collection",
   "tag": "section",
-  "class": "custom-collection-list-section",
+  "class": "spaced-section collection-list-section",
   "max_blocks": 12,
   "settings": [
     {
@@ -73,6 +96,12 @@
       "step": 1,
       "default": 20,
       "label": "Title size"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": false,
+      "label": "t:sections.collection-list.settings.swipe_on_mobile.label"
     },
     {
       "type": "checkbox",

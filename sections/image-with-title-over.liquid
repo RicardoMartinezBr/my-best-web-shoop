@@ -1,23 +1,17 @@
 {{ 'image-with-title-over.css' | asset_url | stylesheet_tag }}
 
 <div class="section__title-container" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.main_title_color }};">
-  <h2 class="section__title" style="color: {{ section.settings.main_title_color }}; font-size: {{- section.settings.font_size -}}rem; ">{{- section.settings.main_title -}}</h2>
-  <div class="section__description">{{- section.settings.description -}}</div>
+    <h2 class="section__title" style="color: {{ section.settings.main_title_color }}; font-size: {{- section.settings.font_size -}}px; ">{{- section.settings.main_title -}}</h2>
+    <div class="section__description">{{- section.settings.description -}}</div>
 </div>
 
 <div class="image__container" style="background-color: {{ section.settings.background_color }};">
     {% for block in section.blocks %}
         <div class="image__inner-container">
-          <a href="{{ block.settings.button_link }}">
-            <img 
-              class="image" 
-              src="{{ block.settings.image | img_url: '' }}" 
-              alt="{{ block.settings.image.alt | escape }}" 
-              loading="lazy">
+            <img class="image" src="{{ block.settings.image | img_url: '' }}" alt="{{ block.settings.image.alt | escape }}" loading="lazy">
             <div class="image__content">
                 <h2 class="image__title" style="color: {{ block.settings.image_text_color }};">{{- block.settings.title -}}</h2>
             </div>
-          </a>
         </div>
     {% endfor %}
 </div>
@@ -43,10 +37,10 @@
       {
         "type": "range",
         "id": "font_size",
-        "min": 0,
-        "max": 4,
+        "min": 20,
+        "max": 100,
         "step": 1,
-        "default": 1,
+        "default": 20,
         "label": "Font size main title"
       },
       {
@@ -77,11 +71,6 @@
             "id": "title",
             "default": "Title",
             "label": "t:sections.multicolumn.blocks.column.settings.title.label"
-            },
-            {
-              "type": "url",
-              "id": "button_link",
-              "label": "Product link"
             },
             {
             "type": "color",

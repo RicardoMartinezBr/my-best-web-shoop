@@ -1,7 +1,25 @@
 {
   "sections": {
     "main": {
-      "type": "main-page"
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+      }
+    },
+    "16305084562e4615b1": {
+      "type": "image-with-title-divider",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/urban-grafitti-viewed-on-angle.jpg",
+        "container_height": 25,
+        "image_title": "",
+        "title_color": "#FFFFFF",
+        "font_size": 50
+      }
+    },
+    "163050854324c8ba20": {
+      "type": "white-space",
+      "settings": {
+      }
     },
     "form": {
       "type": "contact-form",
@@ -12,6 +30,8 @@
   },
   "order": [
     "main",
+    "16305084562e4615b1",
+    "163050854324c8ba20",
     "form"
   ]
 }

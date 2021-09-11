@@ -39,7 +39,7 @@
                 <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
                   <td class="cart-item__media">
                     {% if item.image %}
-                      <img class="cart-item__image"
+                      <img class="cart-item__image cart_item__image-custom"
                         src="{{ item.image | img_url: '150x' }}"
                         alt="{{ item.image.alt | escape }}"
                         loading="lazy"
@@ -219,6 +219,7 @@
     <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
   </form>
 </cart-items>
+
 
 {% schema %}
 {

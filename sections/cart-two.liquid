@@ -1,0 +1,175 @@
+{{ 'cart-two.css' | asset_url | stylesheet_tag }}
+
+<div class="cart">
+  <h1 class="cart__title">{{ 'sections.cart.title' | t }}</h1>
+  <div class="cart__wrapper">
+    {%- if cart.item_count > 0 -%}
+    <form class="cart__form" action="/cart" method="post" novalidate>
+      {%- for item in cart.items -%}
+      <div class="cart-item__wrapper">
+        <div class="cart__product-content">
+          <a href="{{- item.url -}}" class="cart__image-wrapper">
+            <img
+              src="{{ item | img_url: '200x' }}"
+              loading="lazy"
+              alt="{{ item.title | escape }}"
+              width=""
+              height=""
+              class="cart__product-image"
+            >
+          </a>
+          <div class="cart__content">
+            <div class="cart__details">
+              <a href="{{- item.url -}}" class="cart__product-title">{{- item.title -}}</a>
+              <div class="cart__price">
+                {%- if item.product.compare_at_price -%}
+                  {%- liquid 
+                    assign discountedPrice = item.product.compare_at_price | times: item.quantity 
+                    assign finalPrice = item.final_line_price | times: item.quantity
+                    -%}
+                  <div class="cart__sale">
+                    {% if discountedPrice != finalPrice %}
+                      <span class="cart__price--compare">
+                        {{- discountedPrice | money -}}
+                      </span>
+                      <span class="cart__price-discounted">{{- item.final_line_price | money -}} </span>
+                    {% else %}
+                    <span class="cart__normal-price">{{- finalPrice | money -}}</span>
+                    {% endif %}
+                  </div>
+                {%- else -%}
+                  {{- item.final_line_price | money -}}
+                {%- endif -%} 
+                {%- if product.compare_at_price_max != 0 -%}
+                <span class="money sale">
+                  {{- product.price | money  -}}
+                  <span class="money-compare">
+                    {{- product.compare_at_price_max | money  -}}
+                  </span>
+                </span>
+                {%- else -%}
+                <span class="money">
+                  {{- product.price | money  -}}
+                </span>
+                {%- endif -%}
+              </div>
+            </div>
+            <div class="cart__form">
+              <div class="cart__options">
+                <div class="cart__size">
+                  <span class="cart__size-label">{{- section.settings.size -}}</span>
+                  <span>{{- item.variant.title -}}</span>
+                </div>
+                <div class="cart__quantity-wrapper">
+                  <span class="cart__quantity">{{- section.settings.quantity -}}</span>
+                  <label class="medium-down" for="Quantity-{{ item.index | plus: 1 }}">
+                      {{ 'products.product.quantity.label' | t }}
+                    </label>
+                    <quantity-input class="quantity">
+                      <button class="quantity__button no-js-hidden" name="minus" type="button">
+                        <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
+                        {% render 'icon-minus' %}
+                      </button>
+                      <input class="quantity__input"
+                        type="number"
+                        name="updates[]"
+                        value="{{ item.quantity }}"
+                        min="0"
+                        max="6"
+                        aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                        id="Quantity-{{ item.index | plus: 1 }}"
+                        data-index="{{ item.index | plus: 1 }}"
+                      >
+                      <button class="quantity__button no-js-hidden" name="plus" type="button">
+                        <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
+                        {% render 'icon-plus' %}
+                      </button>
+                    </quantity-input>
+                </div>
+              </div>
+              <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}" class="cart__remove-icon">
+                <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
+                  {% render 'icon-remove' %}
+                </a>
+              </cart-remove-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%- endfor -%}
+      <div class="cart__footer">
+        <div class="cart__total">
+          {{- section.settings.subtotal -}}
+          <span class="price">
+            {{- cart.original_total_price | money -}}
+          </span>
+        </div>
+        <div class="cart__shipping">
+          <span class="cart__shippping-title">Shipping info here</span>
+          <span>Note Here</span>
+        </div>
+      </div>
+      <div class="cart__button-wrapper">
+        <input type="submit" class="cart__update-button button button--secondary" name="update" value="{{ section.settings.cart_update }}">
+        <button type="submit" class="cart__checkout-button button" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
+          {{ 'sections.cart.checkout' | t }}
+        </button>
+      </div>
+    </form>
+    {%- else -%}
+    <div class="cart__empty">
+      <div class="cart__empty-text">
+        {{ section.settings.cart_empty }}
+      </div>
+      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">{{ 'general.continue_shopping' | t }}</a> 
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Cart option two",
+  "class": "cart__option-two",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "cart_title",
+      "default": "<p>Je winkelwagen</p>",
+      "label": "Je winkelwagen label"
+    },
+    {
+        "type": "text",
+        "id": "subtotal",
+        "default": "Subtotal",
+        "label": "Subtotal label"
+    },
+    {
+        "type": "text",
+        "id": "remove",
+        "default": "Remove",
+        "label": "Remove label"
+    },
+    {
+        "type": "text",
+        "id": "cart_empty",
+        "default": "Je winkelwagen is leeg",
+        "label": "Empty cart text"
+    }
+    ,
+    {
+        "type": "text",
+        "id": "cart_update",
+        "default": "Update",
+        "label": "Update"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart option two",
+      "category": "Cart option two"
+    }
+  ]
+}
+{% endschema %}

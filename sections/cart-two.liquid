@@ -56,16 +56,18 @@
             </div>
             <div class="cart__form">
               <div class="cart__options">
-                <div class="cart__size">
+                {% comment %} <div class="cart__size">
                   <span class="cart__size-label">{{- section.settings.size -}}</span>
                   <span>{{- item.variant.title -}}</span>
-                </div>
+                </div> {% endcomment %}
                 <div class="cart__quantity-wrapper">
                   <span class="cart__quantity">{{- section.settings.quantity -}}</span>
                   <label class="medium-down" for="Quantity-{{ item.index | plus: 1 }}">
                       {{ 'products.product.quantity.label' | t }}
                     </label>
-                    <quantity-input class="quantity">
+                    <span>{{ item.quantity }}</span>
+
+                    {% comment %} <quantity-input class="quantity">
                       <button class="quantity__button no-js-hidden" name="minus" type="button">
                         <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
                         {% render 'icon-minus' %}
@@ -84,12 +86,12 @@
                         <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
                         {% render 'icon-plus' %}
                       </button>
-                    </quantity-input>
+                    </quantity-input> {% endcomment %}
                 </div>
               </div>
               <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}" class="cart__remove-icon">
-                <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
-                  {% render 'icon-remove' %}
+                <a href="{{ item.url_to_remove }}" class="cart__remove" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
+                  {% render 'custom-remove-icon' %}
                 </a>
               </cart-remove-button>
             </div>
@@ -110,10 +112,10 @@
         </div>
       </div>
       <div class="cart__button-wrapper">
-        <input type="submit" class="cart__update-button button button--secondary" name="update" value="{{ section.settings.cart_update }}">
         <button type="submit" class="cart__checkout-button button" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
           {{ 'sections.cart.checkout' | t }}
         </button>
+        <input type="submit" class="cart__update-button button button--secondary" name="update" value="{{ section.settings.cart_update }}">
       </div>
     </form>
     {%- else -%}

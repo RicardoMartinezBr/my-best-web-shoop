@@ -54,7 +54,7 @@
                 {%- endif -%}
               </div>
             </div>
-            <div class="cart__form">
+            <div class="cart__form cart__quantity-delete">
               <div class="cart__options">
                 {% comment %} <div class="cart__size">
                   <span class="cart__size-label">{{- section.settings.size -}}</span>
@@ -65,9 +65,8 @@
                   <label class="medium-down" for="Quantity-{{ item.index | plus: 1 }}">
                       {{ 'products.product.quantity.label' | t }}
                     </label>
-                    <span>{{ item.quantity }}</span>
-
-                    {% comment %} <quantity-input class="quantity">
+                    {% comment %} <span class="cart__quantity-mobile">{{ item.quantity }}</span> {% endcomment %}
+                      <quantity-input class="quantity cart__quantity-desktop">
                       <button class="quantity__button no-js-hidden" name="minus" type="button">
                         <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
                         {% render 'icon-minus' %}
@@ -86,7 +85,7 @@
                         <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
                         {% render 'icon-plus' %}
                       </button>
-                    </quantity-input> {% endcomment %}
+                    </quantity-input>
                 </div>
               </div>
               <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}" class="cart__remove-icon">
@@ -107,8 +106,8 @@
           </span>
         </div>
         <div class="cart__shipping">
-          <span class="cart__shippping-title">Shipping info here</span>
-          <span>Note Here</span>
+          <span class="cart__shippping-title">{{- section.settings.cart_message-one -}}</span>
+          <span>{{- section.settings.cart_message-two -}}</span>
         </div>
       </div>
       <div class="cart__button-wrapper">
@@ -128,7 +127,6 @@
     {%- endif -%}
   </div>
 </div>
-
 
 {% schema %}
 {
@@ -158,13 +156,22 @@
         "id": "cart_empty",
         "default": "Je winkelwagen is leeg",
         "label": "Empty cart text"
-    }
-    ,
+    },
     {
         "type": "text",
         "id": "cart_update",
         "default": "Update",
         "label": "Update"
+    },
+    {
+        "type": "text",
+        "id": "cart_message-one",
+        "label": "Message one"
+    },
+    {
+        "type": "text",
+        "id": "cart_message-two",
+        "label": "Message two"
     }
   ],
   "presets": [
